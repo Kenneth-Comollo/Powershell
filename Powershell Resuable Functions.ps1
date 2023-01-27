@@ -12,3 +12,14 @@ function Import_CSV_File ($file, $file_path) {
     catch{Send_Error_Email}
     return $file
 }
+
+#check for differences between the reference object/file and the difference object/file
+#in this case we are comparing properties of current (active) employees
+#Note on SideIndicator
+  # <= ... unique to the left-hand side (implied -ReferenceObject parameter)
+  # => ... unique to the right-hand side (implied -DifferenceObject parameter)
+  # == ... present in both collections (only with -IncludeEqual)
+function Check_For_Differences($reference_object, $difference_object) {
+    $results = Compare-Object $reference_object $difference_object -Property "First Name", "Last Name", "Employee Number", "Manager Employee Number", "Work Email", "Work Phone", "Mobile Phone", "Job Code", "Department Code", "Hire Date" -Passthru -CaseSensitive | Where-Object{$_.SideIndicator -eq "=>" -and $_.Status -eq "Active"}
+    return $results
+}
