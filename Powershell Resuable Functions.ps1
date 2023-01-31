@@ -23,3 +23,12 @@ function Check_For_Differences($reference_object, $difference_object) {
     $results = Compare-Object $reference_object $difference_object -Property "First Name", "Last Name", "Employee Number", "Manager Employee Number", "Work Email", "Work Phone", "Mobile Phone", "Job Code", "Department Code", "Hire Date" -Passthru -CaseSensitive | Where-Object{$_.SideIndicator -eq "=>" -and $_.Status -eq "Active"}
     return $results
 }
+
+#get array of csv property values
+function Get_Array_CSV_Values($file, $property) {
+    $csv_values = @()
+    foreach($item in $file) {
+        $csv_values += $item.$property
+    }
+    return $csv_values
+}
