@@ -32,3 +32,14 @@ function Get_Array_CSV_Values($file, $property) {
     }
     return $csv_values
 }
+
+#check for missing or invalid csv values
+function Check_For_Invalid_CSV_Values($file, $property, $csv_values) {
+    $errors = ""
+    foreach($item in $file) {
+        if($item.$property -notin $csv_values) {
+            $errors += "An error occurred: Invalid or missing $property for $item<br /><br />"
+        }
+    }
+    return $errors
+}
