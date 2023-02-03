@@ -43,3 +43,12 @@ function Check_For_Invalid_CSV_Values($file, $property, $csv_values) {
     }
     return $errors
 }
+
+#create hashtable so we can look up values by key
+function Create_HashTable($file, $key, $value) {
+    $hashtable = @{}
+    foreach($item in $file) {
+        $hashtable[$item.$key] = $item.$value
+    }
+    return $hashtable
+}
