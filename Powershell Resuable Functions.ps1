@@ -52,3 +52,13 @@ function Create_HashTable($file, $key, $value) {
     }
     return $hashtable
 }
+
+#look up the hashtable keys and then send the hashtable values to csv
+function Send_HashTable_Values_to_CSV($target_file, $reference_file, $hashtable, $key, $value) {
+    foreach($item in $target_file) {
+        if($hashtable[$reference_file.$key]) {
+            $item.$value = $hashtable[$item.$key]
+        }
+    }
+}
+
