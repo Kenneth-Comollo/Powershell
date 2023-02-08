@@ -62,3 +62,13 @@ function Send_HashTable_Values_to_CSV($target_file, $reference_file, $hashtable,
     }
 }
 
+#convert existing dates from format "MM/dd/yyyy" to UTC
+#UTC format can be adjusted by changing "yyyy-MM-dd HH:mm:ss.fffffff +00:00"
+function Convert_to_UTC($file, $datetime) {
+    foreach($item in $file) {
+        if($item.$datetime) {
+            $item.$datetime = [datetime]::ParseExact($item.$datetime, "MM/dd/yyyy", $null)
+            $item.$datetime = $item.$datetime.ToUniversalTime().ToString("yyyy-MM-dd HH:mm:ss.fffffff +00:00")
+        }
+    }
+}
