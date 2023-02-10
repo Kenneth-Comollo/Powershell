@@ -72,3 +72,11 @@ function Convert_to_UTC($file, $datetime) {
         }
     }
 }
+
+#add additional fields to csv
+function Add_Additional_Fields {
+    $file | Add-Member -MemberType NoteProperty -Name "FieldName" -Value ""
+    $file | Add-Member -MemberType NoteProperty -Name "FieldName1" -Value ""
+    $file | Add-Member -MemberType NoteProperty -Name "FieldName2" -Value ""
+    $file | Add-Member -MemberType NoteProperty -Name "FieldName3" -Value ""
+}
