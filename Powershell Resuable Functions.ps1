@@ -80,3 +80,17 @@ function Add_Additional_Fields {
     $file | Add-Member -MemberType NoteProperty -Name "FieldName2" -Value ""
     $file | Add-Member -MemberType NoteProperty -Name "FieldName3" -Value ""
 }
+
+#export to csv button - sample function 
+function Export_To_CSV_Button_Click() {
+    try {
+        $output_file = New-Object psobject
+        $output_file | Add-Member -MemberType NoteProperty -Name "WorkEmail" -Value $company_email
+        $output_file | Add-Member -MemberType NoteProperty -Name "CompanyID" -Value $company_id
+        $output_file | Export-Csv -NoTypeInformation -Path $output_file_path
+    }
+    catch {
+        [System.Windows.Forms.MessageBox]::Show("An error occurred: $_" + $_.InvocationInfo.ScriptLineNumber + $_.Exception.StackTrace)
+    }
+}
+
