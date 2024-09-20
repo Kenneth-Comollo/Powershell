@@ -94,3 +94,13 @@ function Export_To_CSV_Button_Click() {
     }
 }
 
+#create new csv and button to append items 
+$script:output_file_path = "C:\test\NewItemForm_$todays_date.csv"
+Set-Content "C:\test\NewItemForm_$todays_date.csv" -Value "WorkEmail, CompanyID"
+
+function Add_Item_To_CSV_Button_Click() {
+    $newItem = New-Object psobject
+    $newItem | Add-Member -MemberType NoteProperty -Name "WorkEmail" -Value $company_email
+    $newItem | Add-Member -MemberType NoteProperty -Name "CompanyID" -Value $company_id
+    $newItem | Export-Csv -append -path $output_file_path
+    
